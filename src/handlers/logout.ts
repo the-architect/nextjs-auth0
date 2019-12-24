@@ -2,7 +2,6 @@ import { IncomingMessage, ServerResponse } from 'http';
 
 import IAuth0Settings from '../settings';
 import { setCookies } from '../utils/cookies';
-import CookieSessionStoreSettings from '../session/cookie-store/settings';
 
 function createLogoutUrl(settings: IAuth0Settings): string {
   return (
@@ -12,7 +11,7 @@ function createLogoutUrl(settings: IAuth0Settings): string {
   );
 }
 
-export default function logoutHandler(settings: IAuth0Settings, sessionSettings: CookieSessionStoreSettings) {
+export default function logoutHandler(settings: IAuth0Settings) {
   return async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     if (!res) {
       throw new Error('Response is not available');
@@ -22,15 +21,13 @@ export default function logoutHandler(settings: IAuth0Settings, sessionSettings:
     setCookies(req, res, [
       {
         name: 'a0:state',
-        domain: sessionSettings.cookieDomain,
         value: '',
-        maxAge: 0
+        maxAge: -1
       },
       {
-        name: sessionSettings.cookieName,
-        domain: sessionSettings.cookieDomain,
+        name: 'a0:session',
         value: '',
-        maxAge: 0
+        maxAge: -1
       }
     ]);
 

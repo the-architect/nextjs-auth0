@@ -14,7 +14,7 @@ function createInstance(settings) {
     const store = new cookie_store_1.default(sessionSettings);
     return {
         handleLogin: handlers_1.default.LoginHandler(settings, clientProvider),
-        handleLogout: handlers_1.default.LogoutHandler(settings, sessionSettings),
+        handleLogout: handlers_1.default.LogoutHandler(settings),
         handleCallback: handlers_1.default.CallbackHandler(settings, clientProvider, store),
         handleProfile: handlers_1.default.ProfileHandler(store),
         getSession: handlers_1.default.SessionHandler(store),

@@ -7,7 +7,7 @@ function createLogoutUrl(settings) {
         `client_id=${settings.clientId}` +
         `&returnTo=${encodeURIComponent(settings.postLogoutRedirectUri)}`);
 }
-function logoutHandler(settings, sessionSettings) {
+function logoutHandler(settings) {
     return (req, res) => tslib_1.__awaiter(this, void 0, void 0, function* () {
         if (!res) {
             throw new Error('Response is not available');
@@ -16,15 +16,13 @@ function logoutHandler(settings, sessionSettings) {
         cookies_1.setCookies(req, res, [
             {
                 name: 'a0:state',
-                domain: sessionSettings.cookieDomain,
                 value: '',
-                maxAge: 0
+                maxAge: -1
             },
             {
-                name: sessionSettings.cookieName,
-                domain: sessionSettings.cookieDomain,
+                name: 'a0:session',
                 value: '',
-                maxAge: 0
+                maxAge: -1
             }
         ]);
         // Redirect to the logout endpoint.
