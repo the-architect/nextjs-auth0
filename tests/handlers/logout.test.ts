@@ -44,11 +44,11 @@ describe('logout handler', () => {
     const [stateCookie, sessionCookie] = headers['set-cookie'];
     expect(parse(stateCookie)).toMatchObject({
       'a0:state': '',
-      'Max-Age': '-1'
+      'Max-Age': '0'
     });
     expect(parse(sessionCookie)).toMatchObject({
       'a0:session': '',
-      'Max-Age': '-1'
+      'Max-Age': '0'
     });
   });
 });
