@@ -6,9 +6,9 @@ import CookieSessionStoreSettings from '../session/cookie-store/settings';
 
 function createLogoutUrl(settings: IAuth0Settings): string {
   return (
-    `https://${settings.domain}/v2/logout?`
-    + `client_id=${settings.clientId}`
-    + `&returnTo=${encodeURIComponent(settings.postLogoutRedirectUri)}`
+    `https://${settings.domain}/v2/logout?` +
+    `client_id=${settings.clientId}` +
+    `&returnTo=${encodeURIComponent(settings.postLogoutRedirectUri)}`
   );
 }
 
@@ -22,14 +22,15 @@ export default function logoutHandler(settings: IAuth0Settings, sessionSettings:
     setCookies(req, res, [
       {
         name: 'a0:state',
+        domain: sessionSettings.cookieDomain,
         value: '',
-        maxAge: -1
+        maxAge: 0
       },
       {
         name: sessionSettings.cookieName,
+        domain: sessionSettings.cookieDomain,
         value: '',
-        maxAge: -1,
-        path: sessionSettings.cookiePath
+        maxAge: 0
       }
     ]);
 
